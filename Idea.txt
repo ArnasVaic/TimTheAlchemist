@@ -1,0 +1,56 @@
+﻿Žaidimas „Tim The Alchemist“
+
+
+Žaidėjas yra alchemikas vardu Tim The Alchemist. Žaidimo pradžioje žaidėjas pabunda neaiškioje oloje, kurioje randa keistą stalą
+su keliais elementais (vandens stiklinė, žemės gabalėlis, degtukai(simbolizuoja ugnį) ir vėjo maišelis(pagrindiniai elementai)). Ant stalo
+guli raštelis kuriame parašyta, jog norint pasprukti iš šios olos Timui reikia panaudoti savo alchemiko įgudžius. Timas nieko nelaukdamas 
+pradeda maišyti elementus ir eksperimentuoti su turimais elementais taip sukurdamas vis naujų elementų kurie padės pasprukti iš olos.  
+
+
+Žaidėjas turės pereiti lygius norėdamas pasprukti iš olos. Norint pereiti lygį žaidėjas turės įvykdyti lygio nurodymus kuriuos jis gaus
+lygio pradžioje. Lygis bus laikomas pralaimėtu jeigu žaidėjas nebeturės pakankamai elementų sukurti elemento kurio reikia lygiui pereiti.
+  
+
+Žaidėjas turės galimybę maišyti elementus naudodamas Drag and Drop funkciją, už kiekvieną naujai sukurtą elementą žaidėjas gaus taškų su
+kurie bus įrašomi į "Scoreboardą".
+
+
+PIRMAS LYGIS:
+
+Pradiniai daiktai(žemė 2x, vėjas 1x, vanduo 2x, ugnis 2x)
+
+Tikslas pagaminti buteliuką;
+
+Gamybos procesas:
+Žemė + Vėjas = Smėlis
+Žemė + Vanduo = Mediena (nes palaisčius žemę pradeda augti augalai)
+Mediena + Ugnis = Laužas
+Smėlis + Laužas = Stiklas
+Smelis + Vanduo = Akmuo
+Akmuo + Ugnis = Buteliuko Formelė
+Stiklas + Buteliuko Formelė = Buteliukas
+
+ANTRAS LYGIS:
+
+Pradiniai daiktai(akmuo 2x, paslaptingi milteliai 1x, ugnis 1x, vanduo 2x, buteliukas 1x)
+
+Tikslas pagaminti buteliuką nemirtingumo eleksyro (toks buvo alchemikų tikslas senovėje)
+
+Gamybos procesas:
+Akmuo + Akmuo = Geležies Grynuolis
+Geležies grynuolis + Ugnis = Geležies lydinys
+Vanduo + Paslaptingi Milteliai = Paslaptingas Mišinys
+Geležies lydinys + Paslaptingas Mišinys = Sidabras(nes seniau tikėta, kad sidabras turi gydančių galių)
+Sidabras + Vanduo = Palaidas Nemirtimgumo Eleksyras
+Palaidas Nemirtimgumo Eleksyras + Buteliukas = Buteliukas Nemirtimgumo Eleksyro    
+
+
+ 
+
+
+
+
+
+
+
+
