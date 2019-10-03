@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "src/Element.hpp"
+#include "src/Inventory.hpp"
 #include "src/Assets.hpp"
 #include "src/Menu.hpp"
 #include "src/State.hpp"
@@ -25,7 +25,7 @@ int main(){
     startMenu.addButton(State :: Type :: Game, "START", empty);
     startMenu.addButton(State :: Type :: Exit, "EXIT", empty);
 
-    Element el(Element :: Type :: Water);
+    Inventory inventory;
 
     while (window.isOpen()){
         Event e;
@@ -45,11 +45,11 @@ int main(){
             startMenu.update(window, e);
             if(State :: instance() -> back() == State :: Type :: Game){
 
-                el.update(window, e, m_pos, 0);
+                inventory.update(window, e);
 
                 window.draw(background);
 
-                el.show(window);
+                inventory.show(window);
             }   
             startMenu.show(window);
 

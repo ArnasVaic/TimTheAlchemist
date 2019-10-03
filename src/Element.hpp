@@ -11,14 +11,15 @@ class Element{
     public :
 
         enum Type{
-            Water, Fire, Earth, Air
+            Water, Fire, Earth, Air, Stone
         };
 
         Element(){ }
 
-        Element(Type t) : t(t) { 
+        Element(Type t, uint32_t index) : t(t) { 
             sprite = sf :: Sprite(Assets :: instance() -> elementTextures[static_cast<unsigned int>(t)]);
             sprite.setOrigin(DEFAULT_TEXTURE_SIZE / 2 , DEFAULT_TEXTURE_SIZE / 2);
+            this -> moveToIndex(index);
             pressed = released = selected = false;
         }
 
@@ -31,12 +32,11 @@ class Element{
 
             if(selected && clicked){
                 selected = false;
-                sprite.setPosition(48 + 16 + 128 * ((index + 1 ) % 4), 48 +  240 + 128 * ((index + 1 ) % 4));
+                this -> moveToIndex(index);
                 return;
             } 
 
             if(clicked) selected = true;
-            if(clicked) print("Click");
 
             if(selected){
                 sprite.setPosition(m_pos);
@@ -55,6 +55,10 @@ class Element{
                 }
             }
             return pressed && released;
+        }
+
+        void moveToIndex(uint32_t index){
+            sprite.setPosition(48 + 16 + 112 * (index % 4), 48 + 16 + 112 * (int(index / 5)));
         }
 
     private :

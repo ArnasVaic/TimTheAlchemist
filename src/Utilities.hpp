@@ -7,7 +7,7 @@
 #define DEFAULT_TEXTURE_SIZE 64
 #define print(x) std :: cout << x << std :: endl
 
-const sf :: Vector2u wSize(512, 768);
+const sf :: Vector2u wSize(768, 464);
 
 
 bool exists(const std :: string& name) {

@@ -10,7 +10,7 @@ class Assets{
 
     public :
 
-        sf :: Texture background, elementTextures[4];
+        sf :: Texture background, elementTextures[5];
         sf :: Font font;
         //sf :: SoundBuffer buttonClick;
 
@@ -21,12 +21,13 @@ class Assets{
 
         void loadAssets(){
             font.loadFromFile("res/fonts/Font.TTF");
-            background.loadFromFile("res/background.png");
+            background.loadFromFile("res/textures/background.png");
             //buttonClick.loadFromFile("res/sounds/buttonClick.wav");
-            elementTextures[0].loadFromFile("res/water.png");
-            elementTextures[1].loadFromFile("res/fire.png");
-            elementTextures[2].loadFromFile("res/earth.png");
-            elementTextures[3].loadFromFile("res/air.png");
+            elementTextures[0].loadFromFile("res/textures/element_icons/water.png");
+            elementTextures[1].loadFromFile("res/textures/element_icons/fire.png");
+            elementTextures[2].loadFromFile("res/textures/element_icons/earth.png");
+            elementTextures[3].loadFromFile("res/textures/element_icons/air.png");
+            elementTextures[4].loadFromFile("res/textures/element_icons/stone.png");
         }
 
         Assets(Assets const&) = delete;
