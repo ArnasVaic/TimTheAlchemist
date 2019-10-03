@@ -23,12 +23,22 @@ Tikslas pagaminti buteliuką;
 
 Gamybos procesas:
 Žemė + Vėjas = Smėlis
-Žemė + Vanduo = Mediena (nes palaisčius žemę pradeda augti augalai)
-Mediena + Ugnis = Laužas
+Žemė + Vanduo = Mediena (nes palaisčius žemę pradeda augti augalai XDDDDDDDDD)
+Mediena + Ugnis = Laužas 
 Smėlis + Laužas = Stiklas
 Smelis + Vanduo = Akmuo
 Akmuo + Ugnis = Buteliuko Formelė
 Stiklas + Buteliuko Formelė = Buteliukas
+
+Alterntyvus gamybos procesas 1 lygiui ( intuytivesnis )
+
+Raktas <- Rakto formelė + Metalas
+
+Rakto formelė = Įrankiai + Akmuo
+
+Metalas = Rūda + Ugnis
+
+Rūda = Žemė + 
 
 ANTRAS LYGIS:
 

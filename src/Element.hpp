@@ -20,10 +20,11 @@ class Element{
             sprite = sf :: Sprite(Assets :: instance() -> elementTextures[static_cast<unsigned int>(t)]);
             sprite.setOrigin(DEFAULT_TEXTURE_SIZE / 2 , DEFAULT_TEXTURE_SIZE / 2);
             this -> moveToIndex(index);
+            //ori = index;
             pressed = released = selected = false;
         }
 
-        void update(sf :: RenderWindow& window, sf :: Event e, sf :: Vector2f m_pos, uint32_t index){
+        void update(sf :: RenderWindow& window, sf :: Event e, sf :: Vector2f m_pos, sf :: FloatRect* rects){
             bool clicked = false;
             if(this -> clicked(window, e, m_pos)){
                 clicked = true;
@@ -31,8 +32,10 @@ class Element{
             }
 
             if(selected && clicked){
-                selected = false;
-                this -> moveToIndex(index);
+                if(this -> isTouchingSocket(m_pos, rects)){
+                    selected = false;
+                    this -> moveToSocket(rects, m_pos);  
+                } 
                 return;
             } 
 
@@ -48,21 +51,63 @@ class Element{
         }
 
         bool clicked(sf :: RenderWindow& window, sf :: Event e, sf :: Vector2f m_pos){
-            if(sprite.getGlobalBounds().contains(m_pos)){
-                if(e.mouseButton.button == sf :: Mouse :: Left){
-                    if(e.type == sf :: Event :: MouseButtonReleased && pressed) released = true;
-                    else if(e.type == sf :: Event :: MouseButtonPressed) pressed = true;
+            if(e.mouseButton.button == sf :: Mouse :: Left){
+                if(sprite.getGlobalBounds().contains(m_pos)){
+                    if(e.type == sf :: Event :: MouseButtonPressed) pressed = true;
+                    else  if(e.type == sf :: Event :: MouseButtonReleased && pressed) released = true;
                 }
             }
             return pressed && released;
         }
 
         void moveToIndex(uint32_t index){
-            sprite.setPosition(48 + 16 + 112 * (index % 4), 48 + 16 + 112 * (int(index / 5)));
+            float xi = index % INVENTORY_SIZE_X;
+            float yi = (index - xi ) / INVENTORY_SIZE_X;
+            float x = SOCKET_SIZE / 2 + OFFSETX + (SPACING + SOCKET_SIZE) * xi;
+            float y = SOCKET_SIZE / 2 + OFFSETY + (SPACING + SOCKET_SIZE) * yi;
+            sprite.setPosition(x, y);
         }
+
+        void moveToSocket(sf :: FloatRect *rects, sf :: Vector2f m_pos){
+            bool done = false;
+            for(uint16_t i = 0 ; i < INVENTORY_SIZE + 2 ; i ++){
+                sf :: FloatRect& rect = *(rects + i);
+                if(rect.contains(m_pos)){
+                    //ori = i;
+                    sprite.setPosition(rect.left + rect.width/ 2, rect.top + rect.height/ 2);
+                    done = true;
+                    return;
+                }
+            }
+            /* if(!done){
+                sf :: FloatRect& rect = *(rects + ori);
+                sprite.setPosition(rect.left + rect.width/ 2, rect.top + rect.height/ 2);
+            } */
+        }
+
+        sf :: Vector2f getPosition(){
+            return sprite.getPosition();
+        }
+
+        bool isTouchingSocket(sf :: Vector2f m_pos, sf :: FloatRect* rects){
+            bool done = false;
+            for(uint32_t i = 0 ; i < INVENTORY_SIZE + 2 ; i++){
+                sf :: FloatRect& rect = *(rects + i);
+                if(rect.contains(m_pos)){
+                    done = true;
+                    break;
+                }
+            }
+            return done;
+        }
+
+        /* sf :: Vector2f setPosition(sf :: Vector2f pos){
+            sprite.setPosition(pos);
+        }    */
 
     private :
         sf :: Sprite sprite;
+        //uint16_t ori; // old rect index
         bool selected, pressed, released;
         Type t;
 };
