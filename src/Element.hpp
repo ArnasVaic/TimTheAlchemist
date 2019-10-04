@@ -11,15 +11,16 @@ class Element{
     public :
 
         enum Type{
-            Water, Fire, Earth, Air, Stone
+            Water, Fire, Earth, Air, Stone, Null
         };
 
         Element(){ }
 
-        Element(Type t, uint32_t index) : t(t) { 
+        Element(Type t, uint32_t index) : t(t), index(index) { 
             sprite = sf :: Sprite(Assets :: instance() -> elementTextures[static_cast<unsigned int>(t)]);
             sprite.setOrigin(DEFAULT_TEXTURE_SIZE / 2 , DEFAULT_TEXTURE_SIZE / 2);
             this -> moveToIndex(index);
+            
             //ori = index;
             pressed = released = selected = false;
         }
@@ -33,6 +34,7 @@ class Element{
 
             if(selected && clicked){
                 if(this -> isTouchingSocket(m_pos, rects)){
+                    index -1;
                     selected = false;
                     this -> moveToSocket(rects, m_pos);  
                 } 
@@ -61,6 +63,11 @@ class Element{
         }
 
         void moveToIndex(uint32_t index){
+            if(index == INVENTORY_SIZE + 2){
+                sprite.setPosition(576 + SOCKET_SIZE / 2, 192 + SOCKET_SIZE / 2);
+                index %= INVENTORY_SIZE;
+                return;
+            }
             float xi = index % INVENTORY_SIZE_X;
             float yi = (index - xi ) / INVENTORY_SIZE_X;
             float x = SOCKET_SIZE / 2 + OFFSETX + (SPACING + SOCKET_SIZE) * xi;
@@ -73,16 +80,12 @@ class Element{
             for(uint16_t i = 0 ; i < INVENTORY_SIZE + 2 ; i ++){
                 sf :: FloatRect& rect = *(rects + i);
                 if(rect.contains(m_pos)){
-                    //ori = i;
+                    index = i;
                     sprite.setPosition(rect.left + rect.width/ 2, rect.top + rect.height/ 2);
                     done = true;
                     return;
                 }
             }
-            /* if(!done){
-                sf :: FloatRect& rect = *(rects + ori);
-                sprite.setPosition(rect.left + rect.width/ 2, rect.top + rect.height/ 2);
-            } */
         }
 
         sf :: Vector2f getPosition(){
@@ -101,13 +104,25 @@ class Element{
             return done;
         }
 
+        int getIndex(){
+            return index;
+        }
+
+        Type getType(){
+            return t;
+        }
+
+        void setType(Type t){
+            this -> t = t;
+        }
+
         /* sf :: Vector2f setPosition(sf :: Vector2f pos){
             sprite.setPosition(pos);
         }    */
 
     private :
         sf :: Sprite sprite;
-        //uint16_t ori; // old rect index
+        int index; // index of the rect it is in
         bool selected, pressed, released;
         Type t;
 };

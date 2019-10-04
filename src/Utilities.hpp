@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sys/stat.h>
 #include <string>
+#include <random>
 #include <math.h>
 
 #define INVENTORY_SIZE_X 4
