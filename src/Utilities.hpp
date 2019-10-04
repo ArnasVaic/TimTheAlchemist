@@ -10,15 +10,17 @@
 #define INVENTORY_SIZE_Y 5
 #define INVENTORY_SIZE INVENTORY_SIZE_X * INVENTORY_SIZE_Y
 
-#define SPACING 16
-#define SOCKET_SIZE 64
-#define OFFSETX 64
-#define OFFSETY 32
+#define SCALE 2
+
+#define SPACING 16 * SCALE
+#define SOCKET_SIZE 64 * SCALE
+#define OFFSETX 64 * SCALE
+#define OFFSETY 32 * SCALE
 
 #define DEFAULT_TEXTURE_SIZE 64
 #define print(x) std :: cout << x << std :: endl
 
-const sf :: Vector2u wSize(768, 464);
+const sf :: Vector2u wSize(768 * SCALE, 464 * SCALE);
 
 
 bool exists(const std :: string& name) {

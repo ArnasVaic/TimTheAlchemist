@@ -7,8 +7,8 @@
 #include "Utilities.hpp"
 #include "Assets.hpp"
 
-#define DEFAULT_CHAR_SIZE 18
-#define SELECTED_CHAR_SIZE 20
+#define DEFAULT_CHAR_SIZE 36
+#define SELECTED_CHAR_SIZE 42
 
 class Button{
 

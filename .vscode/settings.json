@@ -6,7 +6,8 @@
         "system_error": "cpp",
         "xiosbase": "cpp",
         "random": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "xlocale": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
