@@ -17,11 +17,36 @@ kurie bus įrašomi į "Scoreboardą".
 
 PIRMAS LYGIS:
 
-Pradiniai daiktai(žemė 2x, vėjas 1x, vanduo 2x, ugnis 2x)
+Tikslas pagaminti raktą
 
-Tikslas pagaminti buteliuką;
+Pradiniai daiktais (Žemė 4x, Ugnis4x ,Vėjas1x, Vanduo1x)
+
+
+Receptas:
+
+Žemė+ugnis=akmuo
+akmuo+akmuo=geležies rūda
+žemė+vanduo=medis
+medis+ugnis=laužas
+geležies rūda+laužas=geležis
+akmuo+vejas=rakto formelė
+geležis+rakto formelė=raktas 
+
+ 
+
+
+
+ANTRAS LYGIS:
+
+Pradiniai daiktai(žemė 2x, vėjas 1x, akmuo 2x, ugnis 1x, vanduo 4x, ugnis2x)
+
+Tikslas pagaminti buteliuką nemirtingumo eleksyro (toks buvo alchemikų tikslas senovėje)
+
+
+
 
 Gamybos procesas:
+
 Žemė + Vėjas = Smėlis
 Žemė + Vanduo = Mediena (nes palaisčius žemę pradeda augti augalai XDDDDDDDDD)
 Mediena + Ugnis = Laužas 
@@ -29,26 +54,8 @@ Smėlis + Laužas = Stiklas
 Smelis + Vanduo = Akmuo
 Akmuo + Ugnis = Buteliuko Formelė
 Stiklas + Buteliuko Formelė = Buteliukas
-
-Alterntyvus gamybos procesas 1 lygiui ( intuytivesnis )
-
-Raktas <- Rakto formelė + Metalas
-
-Rakto formelė = Įrankiai + Akmuo
-
-Metalas = Rūda + Ugnis
-
-Rūda = Žemė + 
-
-ANTRAS LYGIS:
-
-Pradiniai daiktai(akmuo 2x, paslaptingi milteliai 1x, ugnis 1x, vanduo 2x, buteliukas 1x)
-
-Tikslas pagaminti buteliuką nemirtingumo eleksyro (toks buvo alchemikų tikslas senovėje)
-
-Gamybos procesas:
-Akmuo + Akmuo = Geležies Grynuolis
-Geležies grynuolis + Ugnis = Geležies lydinys
+Akmuo + Akmuo = Geležies Rūda
+Geležies Rūda + Ugnis = Geležis
 Vanduo + Paslaptingi Milteliai = Paslaptingas Mišinys
 Geležies lydinys + Paslaptingas Mišinys = Sidabras(nes seniau tikėta, kad sidabras turi gydančių galių)
 Sidabras + Vanduo = Palaidas Nemirtimgumo Eleksyras
