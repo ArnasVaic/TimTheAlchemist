@@ -15,39 +15,22 @@ lygio pradžioje. Lygis bus laikomas pralaimėtu jeigu žaidėjas nebeturės pak
 kurie bus įrašomi į "Scoreboardą".
 
 
-PIRMAS LYGIS:
 
-Pradiniai daiktai(žemė 2x, vėjas 1x, vanduo 2x, ugnis 2x)
 
-Tikslas pagaminti buteliuką;
+ANTRAS LYGIS:
+
+Pradiniai daiktai(žemė2x,vėjas 1x, ugnis 3x, vanduo 4x,)
+
+Tikslas pagaminti buteliuką nemirtingumo eleksyro
 
 Gamybos procesas:
 Žemė + Vėjas = Smėlis
-Žemė + Vanduo = Mediena (nes palaisčius žemę pradeda augti augalai XDDDDDDDDD)
+Žemė + Vanduo = Mediena
 Mediena + Ugnis = Laužas 
 Smėlis + Laužas = Stiklas
 Smelis + Vanduo = Akmuo
 Akmuo + Ugnis = Buteliuko Formelė
 Stiklas + Buteliuko Formelė = Buteliukas
-
-Alterntyvus gamybos procesas 1 lygiui ( intuytivesnis )
-
-Raktas <- Rakto formelė + Metalas
-
-Rakto formelė = Įrankiai + Akmuo
-
-Metalas = Rūda + Ugnis
-
-Rūda = Žemė + 
-
-ANTRAS LYGIS:
-
-Pradiniai daiktai(akmuo 2x, paslaptingi milteliai 1x, ugnis 1x, vanduo 2x, buteliukas 1x)
-
-Tikslas pagaminti buteliuką nemirtingumo eleksyro (toks buvo alchemikų tikslas senovėje)
-
-Gamybos procesas:
-
 Akmuo + Akmuo = Geležies Grynuolis
 Geležies grynuolis + Ugnis = Geležies lydinys
 Vanduo + Paslaptingi Milteliai = Paslaptingas Mišinys
@@ -55,7 +38,11 @@ Geležies lydinys + Paslaptingas Mišinys = Sidabras(nes seniau tikėta, kad sid
 Sidabras + Vanduo = Palaidas Nemirtimgumo Eleksyras
 Palaidas Nemirtimgumo Eleksyras + Buteliukas = Buteliukas Nemirtimgumo Eleksyro    
 
-pirmas levelis :
+Pirmas lygis:
+
+Tikslas pagaminti raktą:
+
+Pradiniai daiktai(Žemė 4x, Ugnis4x ,Vėjas1x, Vanduo1x)
 
 Gamybos procesas:
 
