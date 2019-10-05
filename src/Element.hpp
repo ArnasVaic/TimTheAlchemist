@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Utilities.hpp"
+#include "Textbox.hpp"
 #include "Assets.hpp"
 
 class Element{
@@ -11,20 +12,26 @@ class Element{
     public :
 
         enum Type{
-            Water, Fire, Earth, Air, Stone
+            Water, Fire, Earth, Air, Stone, Sand, Glass, IronOre, Iron, KeyCast, FirePit, Wood, Key
         };
 
         Element(){ }
 
-        Element(Type t, uint32_t index) : t(t), index(index) { 
+        Element(Type t, uint32_t index) : t(t), index(index), showTextBox(false) { 
             sprite = sf :: Sprite(Assets :: instance() -> elementTextures[static_cast<unsigned int>(t)]);
             sprite.setScale(SCALE, SCALE);
             sprite.setOrigin(DEFAULT_TEXTURE_SIZE / 2 , DEFAULT_TEXTURE_SIZE / 2);
             this -> moveToIndex(index);
             pressed = released = selected = false;
+            tb = Textbox(this -> getTypeAsString());
         }
 
         void update(sf :: RenderWindow& window, sf :: Event e, sf :: Vector2f m_pos, sf :: FloatRect* rects){
+            /// update the text box
+            showTextBox = sprite.getGlobalBounds().contains(m_pos) ? true :false;
+            tb.setPosition(sprite.getPosition());
+            /// update the element
+
             bool clicked = false;
             if(this -> clicked(window, e, m_pos)){
                 clicked = true;
@@ -49,11 +56,13 @@ class Element{
 
         void show(sf :: RenderWindow& window){
             window.draw(sprite);
+            if(showTextBox) tb.show(window);
         }
 
         bool clicked(sf :: RenderWindow& window, sf :: Event e, sf :: Vector2f m_pos){
             if(e.mouseButton.button == sf :: Mouse :: Left){
                 if(sprite.getGlobalBounds().contains(m_pos)){
+                    if(!selected) showTextBox = true;
                     if(e.type == sf :: Event :: MouseButtonPressed) pressed = true;
                     else  if(e.type == sf :: Event :: MouseButtonReleased && pressed) released = true;
                 }
@@ -63,7 +72,7 @@ class Element{
 
         void moveToIndex(uint32_t index){
             if(index == INVENTORY_SIZE + 2){
-                sprite.setPosition(576 * SCALE + SOCKET_SIZE / 2, 192 * SCALE + SOCKET_SIZE / 2);
+                sprite.setPosition(160 * SCALE + SOCKET_SIZE / 2, 52 * SCALE + SOCKET_SIZE / 2);
                 index %= INVENTORY_SIZE;
                 return;
             }
@@ -112,6 +121,9 @@ class Element{
         }
 
         std :: string getTypeAsString(){
+            // Water, Fire, Earth, Air, Stone, Sand,
+            // Glass, IronOre, Iron, KeyCast, FirePit, Wood,
+            // Key
             switch(t){
                 case Fire :
                     return "Fire";
@@ -128,6 +140,30 @@ class Element{
                 case Stone :
                     return "Stone";
                     break;
+                case  Sand :
+                    return " Sand";
+                    break;
+                case Glass :
+                    return "Glass";
+                    break;
+                case IronOre :
+                    return "Iron Ore";
+                    break;
+                case Iron :
+                    return "Iron";
+                    break;
+                case KeyCast :
+                    return "Key Cast";
+                    break;
+                case FirePit :
+                    return "Fire Pit";
+                    break;
+                case Wood :
+                    return "Wood";
+                    break;
+                case Key :
+                    return "Key";
+                    break;
                 default :
                     return "NULL";
                     break;
@@ -141,7 +177,8 @@ class Element{
     private :
         sf :: Sprite sprite;
         int index; // index of the rect it is in
-        bool selected, pressed, released;
+        Textbox tb;
+        bool selected, pressed, released, showTextBox;
         Type t;
 };
 

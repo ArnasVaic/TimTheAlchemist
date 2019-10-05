@@ -47,6 +47,7 @@ Pradiniai daiktai(akmuo 2x, paslaptingi milteliai 1x, ugnis 1x, vanduo 2x, butel
 Tikslas pagaminti buteliuką nemirtingumo eleksyro (toks buvo alchemikų tikslas senovėje)
 
 Gamybos procesas:
+
 Akmuo + Akmuo = Geležies Grynuolis
 Geležies grynuolis + Ugnis = Geležies lydinys
 Vanduo + Paslaptingi Milteliai = Paslaptingas Mišinys
@@ -54,7 +55,17 @@ Geležies lydinys + Paslaptingas Mišinys = Sidabras(nes seniau tikėta, kad sid
 Sidabras + Vanduo = Palaidas Nemirtimgumo Eleksyras
 Palaidas Nemirtimgumo Eleksyras + Buteliukas = Buteliukas Nemirtimgumo Eleksyro    
 
+pirmas levelis :
 
+Gamybos procesas:
+
+Žemė+ugnis=akmuo
+akmuo+akmuo=geležies rūda
+žemė+vanduo=medis
+medis+ugnis=laužas
+geležies rūda+laužas=geležis
+akmuo+vejas=rakto formelė
+geležis+rakto formelė=raktas
  
 
 

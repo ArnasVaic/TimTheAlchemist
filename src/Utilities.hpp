@@ -6,21 +6,27 @@
 #include <random>
 #include <math.h>
 
-#define INVENTORY_SIZE_X 4
-#define INVENTORY_SIZE_Y 5
+#define PI 3.14159265359 
+
+#define INVENTORY_SIZE_X 5
+#define INVENTORY_SIZE_Y 4
 #define INVENTORY_SIZE INVENTORY_SIZE_X * INVENTORY_SIZE_Y
 
-#define SCALE 2
+#define SCALE 8
 
-#define SPACING 16 * SCALE
-#define SOCKET_SIZE 64 * SCALE
-#define OFFSETX 64 * SCALE
-#define OFFSETY 32 * SCALE
+#define SPACING 8 * SCALE
+#define SOCKET_SIZE 16 * SCALE
+#define OFFSETX 8 * SCALE
+#define OFFSETY 16 * SCALE
 
-#define DEFAULT_TEXTURE_SIZE 64
+const sf :: Vector2u CRAFTSOCKET1(160 * SCALE, 52 * SCALE); // coord of the socket where you get your new items
+const sf :: Vector2u CRAFTSOCKET2(136 * SCALE, 32 * SCALE); // coord of socket where you put items
+const sf :: Vector2u CRAFTSOCKET3(136 * SCALE, 72 * SCALE); // coord of socket where you put items
+
+#define DEFAULT_TEXTURE_SIZE 16
 #define print(x) std :: cout << x << std :: endl
 
-const sf :: Vector2u wSize(768 * SCALE, 464 * SCALE);
+const sf :: Vector2u wSize(192 * SCALE, 116 * SCALE);
 
 
 bool exists(const std :: string& name) {
