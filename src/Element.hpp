@@ -11,17 +11,16 @@ class Element{
     public :
 
         enum Type{
-            Water, Fire, Earth, Air, Stone, Null
+            Water, Fire, Earth, Air, Stone
         };
 
         Element(){ }
 
         Element(Type t, uint32_t index) : t(t), index(index) { 
             sprite = sf :: Sprite(Assets :: instance() -> elementTextures[static_cast<unsigned int>(t)]);
+            sprite.setScale(SCALE, SCALE);
             sprite.setOrigin(DEFAULT_TEXTURE_SIZE / 2 , DEFAULT_TEXTURE_SIZE / 2);
             this -> moveToIndex(index);
-            
-            //ori = index;
             pressed = released = selected = false;
         }
 
@@ -64,7 +63,7 @@ class Element{
 
         void moveToIndex(uint32_t index){
             if(index == INVENTORY_SIZE + 2){
-                sprite.setPosition(576 + SOCKET_SIZE / 2, 192 + SOCKET_SIZE / 2);
+                sprite.setPosition(576 * SCALE + SOCKET_SIZE / 2, 192 * SCALE + SOCKET_SIZE / 2);
                 index %= INVENTORY_SIZE;
                 return;
             }
@@ -112,13 +111,32 @@ class Element{
             return t;
         }
 
+        std :: string getTypeAsString(){
+            switch(t){
+                case Fire :
+                    return "Fire";
+                    break;
+                case Water :
+                    return "Water";
+                    break;
+                case Earth :
+                    return "Earth";
+                    break;
+                case Air :
+                    return "Air";
+                    break;
+                case Stone :
+                    return "Stone";
+                    break;
+                default :
+                    return "NULL";
+                    break;
+            }
+        }
+
         void setType(Type t){
             this -> t = t;
         }
-
-        /* sf :: Vector2f setPosition(sf :: Vector2f pos){
-            sprite.setPosition(pos);
-        }    */
 
     private :
         sf :: Sprite sprite;

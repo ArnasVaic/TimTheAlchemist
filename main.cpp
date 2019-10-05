@@ -20,6 +20,7 @@ int main(){
     double dt = 0;
 
     Sprite background(Assets :: instance() -> background);
+    background.setScale(SCALE, SCALE);
 
     Menu startMenu(State :: Type :: Start);
     startMenu.addButton(State :: Type :: Game, "START", empty);

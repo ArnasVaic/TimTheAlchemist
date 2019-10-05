@@ -20,7 +20,7 @@ class Assets{
         }
 
         void loadAssets(){
-            font.loadFromFile("res/fonts/Font.TTF");
+            font.loadFromFile("res/fonts/pixelmix.TTF");
             background.loadFromFile("res/textures/bg.png");
             //buttonClick.loadFromFile("res/sounds/buttonClick.wav");
             elementTextures[0].loadFromFile("res/textures/element_icons/water.png");
