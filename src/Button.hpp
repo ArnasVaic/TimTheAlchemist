@@ -24,15 +24,18 @@ class Button{
             this -> command = command;
             //click.setBuffer(Assets :: instance() -> buttonClick);
             message = sf :: Text(text, font, DEFAULT_CHAR_SIZE);
-            message.setFillColor(sf :: Color :: Black);
+           //message.setFillColor(sf :: Color :: White);
             message.setOrigin(message.getGlobalBounds().width / 2, message.getGlobalBounds().height / 2);
             message.move(position);
+
+            click =sf :: Sound(Assets :: instance() -> click);
+            click.setVolume(50);
 
         }
 
         void update(sf :: Event e, sf :: RenderWindow& window){
             if(this -> clicked(e, window)){
-            //click.play();
+            click.play();
             command();
             pressed = released = false;
             State :: instance() -> push(point);
@@ -77,7 +80,7 @@ class Button{
         State :: Type point; // pointState and existState
         sf :: Vector2f position;
         sf :: Text message;
-        //sf :: Sound click;
+        sf :: Sound click;
         void (*command)();
         bool pressed, released;
 

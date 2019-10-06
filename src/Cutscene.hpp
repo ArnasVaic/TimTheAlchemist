@@ -31,7 +31,7 @@ class Cutscene{
         }
 
         float fade(float ellapsed){
-            return pow(1 - abs(cos(PI * (2 * ellapsed - frame_length)/(2 * frame_length))) , 2);
+            return pow(1 - abs(cos(PI * (2 * ellapsed - frame_length)/(2 * frame_length))) , 0.5);
         }
 
         bool getProgress(){ return finished; }

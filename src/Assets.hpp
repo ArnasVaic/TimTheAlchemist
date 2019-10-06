@@ -2,7 +2,7 @@
 #define ASSETS_HPP
 
 #include <SFML/Graphics.hpp>
-//#include <SFML/Audio.hpp>
+#include <SFML/Audio.hpp>
 #include <memory>
 
 class Assets{
@@ -11,9 +11,14 @@ class Assets{
 
     public :
 
-        sf :: Texture background, elementTextures[13], cutscene;
+        sf :: Texture background[2];
+        sf :: Texture cutscene;
+        sf :: Texture elementSheets[1];
+        sf :: Texture elementTextures[13];
+
         sf :: Font font;
-        //sf :: SoundBuffer buttonClick;
+        sf :: Music music;
+        sf :: SoundBuffer click, level_failed, craft;
 
         static std :: shared_ptr<Assets> instance(){
             static std :: shared_ptr<Assets> inst{new Assets};
@@ -21,9 +26,22 @@ class Assets{
         }
 
         void loadAssets(){
+            //FONTS
             font.loadFromFile("res/fonts/pixelmix.TTF");
-            background.loadFromFile("res/textures/backgrounds/bg1.png");
-            //buttonClick.loadFromFile("res/sounds/buttonClick.wav");
+            // BCKGROUNDS
+            background[0].loadFromFile("res/textures/backgrounds/game_background.png");
+            background[1].loadFromFile("res/textures/backgrounds/start_background_sheet.png");
+            //SOUNDS
+            click.loadFromFile("res/sounds/click.wav");
+            level_failed.loadFromFile("res/sounds/levelfailed.wav");
+            craft.loadFromFile("res/sounds/craft.wav");
+            //MUSIC
+            music.openFromFile("res/sounds/cutscenetheme.wav");
+            /// ANIMATED ELEMENTS
+            elementSheets[0].loadFromFile("res/textures/element_icons/water.png");
+            elementSheets[1].loadFromFile("res/textures/element_icons/fire.png");
+            elementSheets[2].loadFromFile("res/textures/element_icons/earth.png");
+            elementSheets[0].loadFromFile("res/textures/element_icons/air_sheet.png");
             /// ELEMENTS
             // 0Water, 1Fire, 2Earth, 3Air, 4Stone, 5Sand, 6Glass, 7IronOre, 8Iron, 9KeyCast, 10FirePit, 11Wood
             elementTextures[0].loadFromFile("res/textures/element_icons/water.png");
@@ -40,7 +58,7 @@ class Assets{
             elementTextures[11].loadFromFile("res/textures/element_icons/wood.png");
             elementTextures[12].loadFromFile("res/textures/element_icons/key.png");
             /// CUTSCENE
-            cutscene.loadFromFile("res/textures/cutscenes/1edited.png");
+            cutscene.loadFromFile("res/textures/cutscenes/level1.png");
 
         }
 

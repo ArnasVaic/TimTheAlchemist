@@ -15,7 +15,7 @@ class Menu{
 
 		void addButton(State :: Type point, std :: string text, void(*command)()){
 			buttons.push_back(Button(point, command, Assets :: instance() -> font,
-					text,sf :: Vector2f(wSize.x/2, wSize.y/2 + buttons.size() * 64)));
+					text,sf :: Vector2f(wSize.x / 2 , 4 * wSize.y / 5 + buttons.size() * 64)));
 		}
 
 		void update(sf :: RenderWindow& window, sf :: Event e){

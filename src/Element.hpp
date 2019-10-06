@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Animation.hpp"
 #include "Utilities.hpp"
 #include "Textbox.hpp"
 #include "Assets.hpp"
@@ -18,22 +19,36 @@ class Element{
         Element(){ }
 
         Element(Type t, uint32_t index) : t(t), index(index), showTextBox(false) { 
-            sprite = sf :: Sprite(Assets :: instance() -> elementTextures[static_cast<unsigned int>(t)]);
-            sprite.setScale(SCALE, SCALE);
+
+            if(t == Type :: Air){
+                animation = Animation(Assets :: instance() -> elementSheets[0], sprite, sf :: Vector2u(8, 1), sf :: Vector2f(SCALE, SCALE));
+            }
+            else{
+                sprite = sf :: Sprite(Assets :: instance() -> elementTextures[static_cast<unsigned int>(t)]);
+                sprite.setScale(SCALE, SCALE);
+            }
             sprite.setOrigin(DEFAULT_TEXTURE_SIZE / 2 , DEFAULT_TEXTURE_SIZE / 2);
             this -> moveToIndex(index);
+
             pressed = released = selected = false;
             tb = Textbox(this -> getTypeAsString());
+            click =sf :: Sound(Assets :: instance() -> click);
+            click.setVolume(50);
         }
 
         void update(sf :: RenderWindow& window, sf :: Event e, sf :: Vector2f m_pos, sf :: FloatRect* rects){
             /// update the text box
             showTextBox = sprite.getGlobalBounds().contains(m_pos) ? true :false;
             tb.setPosition(sprite.getPosition());
+            // update animation
+            if(t == Type :: Air){
+                animation.play(0, 0.1f, sprite);
+            }
             /// update the element
 
             bool clicked = false;
             if(this -> clicked(window, e, m_pos)){
+                click.play();
                 clicked = true;
                 pressed = released = false;
             }
@@ -175,7 +190,10 @@ class Element{
         }
 
     private :
+
+        sf :: Sound click;
         sf :: Sprite sprite;
+        Animation animation;
         int index; // index of the rect it is in
         Textbox tb;
         bool selected, pressed, released, showTextBox;
