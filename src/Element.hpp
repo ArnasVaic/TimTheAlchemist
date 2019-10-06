@@ -19,14 +19,7 @@ class Element{
         Element(){ }
 
         Element(Type t, uint32_t index) : t(t), index(index), showTextBox(false) { 
-
-            if(t == Type :: Air){
-                animation = Animation(Assets :: instance() -> elementSheets[0], sprite, sf :: Vector2u(8, 1), sf :: Vector2f(SCALE, SCALE));
-            }
-            else{
-                sprite = sf :: Sprite(Assets :: instance() -> elementTextures[static_cast<unsigned int>(t)]);
-                sprite.setScale(SCALE, SCALE);
-            }
+            animation = Animation(Assets :: instance() -> elementSheets[static_cast<unsigned int>(t)], sprite, sf :: Vector2u(8, 1), sf :: Vector2f(SCALE, SCALE));
             sprite.setOrigin(DEFAULT_TEXTURE_SIZE / 2 , DEFAULT_TEXTURE_SIZE / 2);
             this -> moveToIndex(index);
 
@@ -41,9 +34,7 @@ class Element{
             showTextBox = sprite.getGlobalBounds().contains(m_pos) ? true :false;
             tb.setPosition(sprite.getPosition());
             // update animation
-            if(t == Type :: Air){
                 animation.play(0, 0.1f, sprite);
-            }
             /// update the element
 
             bool clicked = false;
