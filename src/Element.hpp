@@ -102,10 +102,6 @@ class Element{
             }
         }
 
-        sf :: Vector2f getPosition(){
-            return sprite.getPosition();
-        }
-
         bool isTouchingSocket(sf :: Vector2f m_pos, sf :: FloatRect* rects){
             bool done = false;
             for(uint32_t i = 0 ; i < INVENTORY_SIZE + 2 ; i++){
@@ -116,14 +112,6 @@ class Element{
                 }
             }
             return done;
-        }
-
-        int getIndex(){
-            return index;
-        }
-
-        Type getType(){
-            return t;
         }
 
         std :: string getTypeAsString(){
@@ -178,6 +166,30 @@ class Element{
 
         void setType(Type t){
             this -> t = t;
+        }
+
+        sf :: Vector2f getPosition(){
+            return sprite.getPosition();
+        }
+
+        void setPosition(sf :: Vector2f pos){
+            sprite.setPosition(pos);
+        }
+
+        sf :: Vector2f getScale(){
+            return sprite.getScale();
+        }
+
+        void setScale(sf :: Vector2f scale){
+            sprite.setScale(scale);
+        }
+
+        int getIndex(){
+            return index;
+        }
+
+        Type getType(){
+            return t;
         }
 
     private :

@@ -27,13 +27,23 @@ int main(){
     Sprite start_bg;
     Animation startBackground(Assets :: instance() -> background[1], start_bg, sf :: Vector2u(8, 1), sf :: Vector2f(SCALE, SCALE));
 
-    Cutscene scene(Assets :: instance() -> cutscene, 4, 8);
-    scene.textBoxes.push_back(Textbox("zzzzzz...", 24));
-    scene.textBoxes.push_back(Textbox("What ? Where ? Where am I ?", 24));
-    scene.textBoxes.push_back(Textbox("Is this a dungeon ? How did I get here ?", 24));
-    scene.textBoxes.push_back(Textbox("Hmmm. What is this ? A lock ? Maybe if I find a way to craft a key I can escape...", 24));
+    Cutscene scene1(Assets :: instance() -> cutscene1, 4, 8);
+    scene1.textBoxes.push_back(Textbox("zzzzzz...", 24));
+    scene1.textBoxes.push_back(Textbox("What ? Where ? Where am I ?", 24));
+    scene1.textBoxes.push_back(Textbox("Is this a dungeon ? How did I get here ?", 24));
+    scene1.textBoxes.push_back(Textbox("Hmmm. What is this ? A lock ? Maybe if I find a way to craft a key I can escape...", 24));
 
-    for(auto& i : scene.textBoxes){
+    Cutscene scene2(Assets :: instance() -> cutscene2, 4, 8);
+    scene2.textBoxes.push_back(Textbox("Finally !", 24));
+    scene2.textBoxes.push_back(Textbox("I was able to craft this key", 24));
+    scene2.textBoxes.push_back(Textbox("Now I can unclock the hatchet !", 24));
+    scene2.textBoxes.push_back(Textbox("Hmmm. I wonder what's next ?", 24));
+
+    for(auto& i : scene1.textBoxes){
+        i.setPosition(sf :: Vector2f(wSize.x / 2, wSize.y - 8 * SCALE));
+    }
+
+    for(auto& i : scene2.textBoxes){
         i.setPosition(sf :: Vector2f(wSize.x / 2, wSize.y - 8 * SCALE));
     }
 
@@ -57,11 +67,13 @@ int main(){
     level1_items.push_back(Element(Element :: Type :: Air, 8));
     level1_items.push_back(Element(Element :: Type :: Water, 9));
 
-    Inventory level1_inventory(level1_items);
+    Inventory level1_inventory(level1_items, Element :: Type :: Key);
 
     float musicVol = 0;
     Assets :: instance() -> music.setLoop(true);
     Assets :: instance() -> music.setVolume(musicVol);
+
+    Assets :: instance() -> music.play();
 
     while (window.isOpen()){
         Event e;
@@ -85,25 +97,39 @@ int main(){
                 window.draw(start_bg);
             }
             if(State :: instance() -> back() == State :: Type :: Cutscene1){
-                if(musicVol < 10){
-                    musicVol += 0.01;
-                    print(musicVol);
+                if(musicVol < 25){
+                    musicVol += 0.1;
                     Assets :: instance() -> music.setVolume(musicVol);
                 }
-                scene.play();
-                scene.show(window);
-                if(scene.getProgress()){
+                scene1.play();
+                scene1.show(window);
+                if(scene1.getProgress()){
                     State :: instance() -> pop();
                     State :: instance() -> push(State :: Type :: Level1);
                 }
             }
+            if(State :: instance() -> back() == State :: Type :: Cutscene2){
+                scene2.play();
+                scene2.show(window);
+                if(scene2.getProgress()){
+                    State :: instance() -> pop();
+                    State :: instance() -> push(State :: Type :: Level2);
+                }
+            
+            }
             if(State :: instance() -> back() == State :: Type :: Level1){
                 
                 level1_inventory.update(window, e);
-
+                if(level1_inventory.isLevelCompleted()){
+                    State :: instance() -> pop();
+                    State :: instance() -> push(State :: Type :: Cutscene2);
+                }
                 window.draw(gameBackground);
-
                 level1_inventory.show(window);
+            }  
+            if(State :: instance() -> back() == State :: Type :: Level2){
+                window.clear(Color :: Black);
+                if(musicVol > 0) musicVol -= .1;
             }   
             startMenu.show(window);
 

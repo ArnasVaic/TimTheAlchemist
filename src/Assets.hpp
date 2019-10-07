@@ -11,7 +11,7 @@ class Assets{
     public :
 
         sf :: Texture background[2];
-        sf :: Texture cutscene;
+        sf :: Texture cutscene1, cutscene2;
         sf :: Texture elementSheets[13];
         sf :: Texture elementTextures[13];
 
@@ -53,7 +53,8 @@ class Assets{
             /// ELEMENTS
             // 0Water, 1Fire, 2Earth, 3Air, 4Stone, 5Sand, 6Glass, 7IronOre, 8Iron, 9KeyCast, 10FirePit, 11Wood
             /// CUTSCENE
-            cutscene.loadFromFile("res/textures/cutscenes/level1.png");
+            cutscene1.loadFromFile("res/textures/cutscenes/level1.png");
+            cutscene2.loadFromFile("res/textures/cutscenes/level2.png");
 
         }
 

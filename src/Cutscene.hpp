@@ -12,8 +12,8 @@ class Cutscene{
 
         Cutscene(){}
 
-        Cutscene(const sf :: Texture& sheet, uint32_t frames, float frame_length) : finished(false), frame_length(frame_length){
-            scene = Animation(Assets :: instance() -> cutscene, sprite, sf :: Vector2u(frames, 1), sf :: Vector2f(SCALE, SCALE));
+        Cutscene(sf :: Texture& sheet, uint32_t frames, float frame_length) : finished(false), frame_length(frame_length){
+            scene = Animation(sheet, sprite, sf :: Vector2u(frames, 1), sf :: Vector2f(SCALE, SCALE));
             shade = sf :: RectangleShape(scene.getSpriteSize());
             shade.setScale(SCALE, SCALE);
         }

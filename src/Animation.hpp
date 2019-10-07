@@ -8,7 +8,8 @@ class Animation
 public :
     Animation(){}
 
-    Animation(sf :: Texture& sprite_sheet, sf :: Sprite& sprite, sf :: Vector2u imageCount, sf ::Vector2f scale ) : imageCount(imageCount), scale(scale), finished(false){
+    Animation(sf :: Texture& sprite_sheet, sf :: Sprite& sprite, sf :: Vector2u imageCount, sf ::Vector2f scale ) : imageCount(imageCount), scale(scale){
+        finished = false;
         sprite_size =sf :: Vector2f(sprite_sheet.getSize().x / imageCount.x, sprite_sheet.getSize().y / imageCount.y);
         body = sf :: IntRect(0, 0, sprite_size.x, sprite_size.y);
         sprite = sf :: Sprite(sprite_sheet, body);
