@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+
 #include "src/Inventory.hpp"
 #include "src/Cutscene.hpp"
 #include "src/Assets.hpp"
@@ -9,7 +10,7 @@
 using namespace sf;
 using namespace std;
 
-void playMusic();
+//void playMusic();
 
 int main(){
     RenderWindow window(VideoMode(wSize.x , wSize.y), "Tim The Alchemist", Style :: Titlebar | Style :: Close);
@@ -40,14 +41,14 @@ int main(){
     gameBackground.setScale(SCALE, SCALE);
 
     Menu startMenu(State :: Type :: Start);
-    startMenu.addButton(State :: Type :: Cutscene1, "START", playMusic);
+    startMenu.addButton(State :: Type :: Cutscene1, "START", /* playMusic */ empty);
     startMenu.addButton(State :: Type :: Exit, "EXIT", empty);
 
     Inventory inventory;
 
-    float musicVol = 0;
-    Assets :: instance() -> music.setLoop(true);
-    Assets :: instance() -> music.setVolume(musicVol);
+    //float musicVol = 0;
+    //Assets :: instance() -> music.setLoop(true);
+    //Assets :: instance() -> music.setVolume(musicVol);
 
     while (window.isOpen()){
         Event e;
@@ -71,11 +72,11 @@ int main(){
                 window.draw(start_bg);
             }
             if(State :: instance() -> back() == State :: Type :: Cutscene1){
-                if(musicVol < 10){
+                /* if(musicVol < 10){
                     musicVol += 0.01;
-                    //print(musicVol);
+                    print(musicVol);
                     Assets :: instance() -> music.setVolume(musicVol);
-                }
+                } */
                 scene.play();
                 scene.show(window);
                 if(scene.getProgress()){
@@ -101,10 +102,10 @@ int main(){
     return 0;
 }
 
-void playMusic(){
-    Assets :: instance() -> music.play();
+/* void playMusic(){
+    //Assets :: instance() -> music.play();
 }
 
 void stopMusic(){
-    Assets :: instance() -> music.stop();
-}
+    //Assets :: instance() -> music.stop();
+} */

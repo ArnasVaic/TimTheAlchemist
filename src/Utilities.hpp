@@ -1,8 +1,9 @@
-#pragma once
+#ifndef ASSETS_HPP
+#define ASSETS_HPP
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
-#include <sys/stat.h>
 #include <string>
 #include <random>
 #include <math.h>
@@ -29,12 +30,6 @@ const sf :: Vector2u CRAFTSOCKET3(136 * SCALE, 72 * SCALE); // coord of socket w
 
 const sf :: Vector2u wSize(192 * SCALE, 116 * SCALE);
 
-
-bool exists(const std :: string& name) {
-  struct stat buffer;
-  return (stat (name.c_str(), &buffer) == 0);
-}
-
 float mag(sf :: Vector2u v){
     return sqrt(v.x * v.x + v.y * v.y);
 }
@@ -45,3 +40,5 @@ float mag(sf :: Vector2f v){
 
 
 void empty(){ }
+
+#endif
