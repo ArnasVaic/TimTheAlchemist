@@ -90,13 +90,13 @@ class Element{
         }
 
         void moveToSocket(sf :: FloatRect *rects, sf :: Vector2f m_pos){
-            bool done = false;
+            //bool done = false;
             for(uint16_t i = 0 ; i < INVENTORY_SIZE + 2 ; i ++){
                 sf :: FloatRect& rect = *(rects + i);
                 if(rect.contains(m_pos)){
                     index = i;
                     sprite.setPosition(rect.left + rect.width/ 2, rect.top + rect.height/ 2);
-                    done = true;
+                    //done = true;
                     return;
                 }
             }

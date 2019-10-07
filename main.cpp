@@ -45,7 +45,19 @@ int main(){
     startMenu.addButton(State :: Type :: Cutscene1, "START", playMusic);
     startMenu.addButton(State :: Type :: Exit, "EXIT", empty);
 
-    Inventory inventory;
+    std :: vector<Element> level1_items;
+    level1_items.push_back(Element(Element :: Type :: Earth, 0));
+    level1_items.push_back(Element(Element :: Type :: Earth, 1));
+    level1_items.push_back(Element(Element :: Type :: Earth, 2));
+    level1_items.push_back(Element(Element :: Type :: Earth, 3));
+    level1_items.push_back(Element(Element :: Type :: Fire, 4));
+    level1_items.push_back(Element(Element :: Type :: Fire, 5));
+    level1_items.push_back(Element(Element :: Type :: Fire, 6));
+    level1_items.push_back(Element(Element :: Type :: Fire, 7));
+    level1_items.push_back(Element(Element :: Type :: Air, 8));
+    level1_items.push_back(Element(Element :: Type :: Water, 9));
+
+    Inventory level1_inventory(level1_items);
 
     float musicVol = 0;
     Assets :: instance() -> music.setLoop(true);
@@ -87,11 +99,11 @@ int main(){
             }
             if(State :: instance() -> back() == State :: Type :: Level1){
                 
-                inventory.update(window, e);
+                level1_inventory.update(window, e);
 
                 window.draw(gameBackground);
 
-                inventory.show(window);
+                level1_inventory.show(window);
             }   
             startMenu.show(window);
 

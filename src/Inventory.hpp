@@ -10,30 +10,14 @@
 class Inventory{
 
     public :
-        Inventory(){
+        Inventory(std :: vector<Element>& items){
             // starting items :
-            items.push_back(Element(Element :: Type :: Earth, 0));
-            items.push_back(Element(Element :: Type :: Earth, 1));
-            items.push_back(Element(Element :: Type :: Earth, 2));
-            items.push_back(Element(Element :: Type :: Earth, 3));
-
-            items.push_back(Element(Element :: Type :: Fire, 4));
-            items.push_back(Element(Element :: Type :: Fire, 5));
-            items.push_back(Element(Element :: Type :: Fire, 6));
-            items.push_back(Element(Element :: Type :: Fire, 7));
-
-            items.push_back(Element(Element :: Type :: Air, 8));
-            items.push_back(Element(Element :: Type :: Water, 9)); 
-            items.push_back(Element(Element :: Type :: Glass, 10)); 
+            this -> items = items;  
 
             for(uint32_t y = 0 ; y < INVENTORY_SIZE_Y ; y ++){
                 for(uint32_t x = 0 ; x < INVENTORY_SIZE_X ; x ++){
                     rects[x + y * INVENTORY_SIZE_X] = sf :: FloatRect(OFFSETX + x * (SOCKET_SIZE + SPACING),
                              OFFSETY + y * (SOCKET_SIZE + SPACING), SOCKET_SIZE, SOCKET_SIZE);
-                    /* print("LEFT = " << rects[x + y * INVENTORY_SIZE_X].left << 
-                          "TOP = " << rects[x + y * INVENTORY_SIZE_X].top <<
-                          "WIDTH = " << rects[x + y * INVENTORY_SIZE_X].width <<
-                          "HEIGHT = " << rects[x + y * INVENTORY_SIZE_X].height); */
                 }
             }
             
