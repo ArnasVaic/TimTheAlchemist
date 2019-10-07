@@ -8,7 +8,7 @@ class Animation
 public :
     Animation(){}
 
-    Animation(sf :: Texture& sprite_sheet, sf :: Sprite& sprite, sf :: Vector2u imageCount, sf ::Vector2f scale ) : imageCount(imageCount), scale(scale), finsihed(false){
+    Animation(sf :: Texture& sprite_sheet, sf :: Sprite& sprite, sf :: Vector2u imageCount, sf ::Vector2f scale ) : imageCount(imageCount), scale(scale), finished(false){
         sprite_size =sf :: Vector2f(sprite_sheet.getSize().x / imageCount.x, sprite_sheet.getSize().y / imageCount.y);
         body = sf :: IntRect(0, 0, sprite_size.x, sprite_size.y);
         sprite = sf :: Sprite(sprite_sheet, body);
@@ -29,7 +29,7 @@ public :
 
     bool playOnce(size_t row, float deltaTime, sf :: Sprite& sprite)
     {
-        if(!finsihed){
+        if(!finished){
             body.top = row * sprite_size.y;
             const float& elapsedTime = clock.getElapsedTime().asSeconds();
             if(elapsedTime > deltaTime)
@@ -37,12 +37,12 @@ public :
                 body.left += sprite_size.x;
                 if(body.left == imageCount.x * sprite_size.x){
                     body.left=0;
-                    finsihed = true;
+                    finished = true;
                 }
                 clock.restart();
             } sprite.setTextureRect(body);
         }
-        return finsihed;
+        return finished;
     }
 
     uint32_t getCurrentFrame(){
@@ -71,7 +71,7 @@ public :
     
 private:
 
-    bool finsihed;
+    bool finished;
     sf :: IntRect body;
     sf :: Clock clock;
     sf :: Vector2f sprite_size;

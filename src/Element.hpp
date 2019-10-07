@@ -25,8 +25,8 @@ class Element{
 
             pressed = released = selected = false;
             tb = Textbox(this -> getTypeAsString());
-            //click =sf :: Sound(Assets :: instance() -> click);
-            //click.setVolume(50);
+            click =sf :: Sound(Assets :: instance() -> click);
+            click.setVolume(50);
         }
 
         void update(sf :: RenderWindow& window, sf :: Event e, sf :: Vector2f m_pos, sf :: FloatRect* rects){
@@ -39,7 +39,7 @@ class Element{
 
             bool clicked = false;
             if(this -> clicked(window, e, m_pos)){
-                //click.play();
+                click.play();
                 clicked = true;
                 pressed = released = false;
             }
@@ -182,7 +182,7 @@ class Element{
 
     private :
 
-        //sf :: Sound click;
+        sf :: Sound click;
         sf :: Sprite sprite;
         Animation animation;
         int index; // index of the rect it is in

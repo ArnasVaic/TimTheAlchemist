@@ -16,8 +16,8 @@ class Assets{
         sf :: Texture elementTextures[13];
 
         sf :: Font font;
-        //sf :: Music music;
-        //sf :: SoundBuffer click, level_failed, craft;
+        sf :: Music music;
+        sf :: SoundBuffer click, level_failed, craft;
 
         static std :: shared_ptr<Assets> instance(){
             static std :: shared_ptr<Assets> inst{new Assets};
@@ -30,12 +30,12 @@ class Assets{
             // BCKGROUNDS
             background[0].loadFromFile("res/textures/backgrounds/game_background.png");
             background[1].loadFromFile("res/textures/backgrounds/start_background_sheet.png");
-            /* //SOUNDS
+            //SOUNDS
             click.loadFromFile("res/sounds/click.wav");
             level_failed.loadFromFile("res/sounds/levelfailed.wav");
             craft.loadFromFile("res/sounds/craft.wav");
             //MUSIC
-            music.openFromFile("res/sounds/cutscenetheme.wav"); */
+            music.openFromFile("res/sounds/cutscenetheme.wav");
             /// ANIMATED ELEMENTS
             elementSheets[0].loadFromFile("res/textures/element_sheets/water_sheet.png");
             elementSheets[1].loadFromFile("res/textures/element_sheets/fire_sheet.png");
