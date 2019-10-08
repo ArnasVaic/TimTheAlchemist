@@ -71,6 +71,10 @@ class Button{
 
         }
 
+        void setPosition(sf :: Vector2f pos){
+            position = pos;
+        }
+
         ~Button(){}
 
     private :

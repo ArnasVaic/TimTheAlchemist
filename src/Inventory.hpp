@@ -13,6 +13,7 @@ class Inventory{
 
     public :
         Inventory(std :: vector<Element>& items, Element :: Type target) : target(target), completed(false), decraftIndex(INVENTORY_SIZE + 3) {
+            crafts = sf :: Sound(Assets :: instance() -> craft);
             // starting items :
             this -> items = items;  
             for(uint32_t y = 0 ; y < INVENTORY_SIZE_Y ; y ++){
@@ -109,13 +110,14 @@ class Inventory{
             } 
             // when index is INVENTORY_SIZE + 3 its just return because no items are in queue to craft
             if(selected[0] == INVENTORY_SIZE + 3 || selected[1] == INVENTORY_SIZE + 3) return;
-            if(this -> craft(&selected[0], Element :: Type :: Earth, Element :: Type :: Fire, Element :: Type :: Stone)){ score += 10; return; }
-            if(this -> craft(&selected[0], Element :: Type :: Stone, Element :: Type :: Stone, Element :: Type :: IronOre)){ score += 10; return; }
-            if(this -> craft(&selected[0], Element :: Type :: Earth, Element :: Type :: Water, Element :: Type :: Wood)){ score += 10; return; }
-            if(this -> craft(&selected[0], Element :: Type :: Wood, Element :: Type :: Fire, Element :: Type :: FirePit)){ score += 10; return; }
-            if(this -> craft(&selected[0], Element :: Type :: IronOre, Element :: Type :: FirePit, Element :: Type :: Iron)){ score += 10; return; }
-            if(this -> craft(&selected[0], Element :: Type :: Stone, Element :: Type :: Air, Element :: Type :: KeyCast)){  score += 10;return; }
-            if(this -> craft(&selected[0], Element :: Type :: Iron, Element :: Type :: KeyCast, Element :: Type :: Key)){  score += 10;return; }
+            crafts.play();
+            if(this -> craft(&selected[0], Element :: Type :: Earth, Element :: Type :: Fire, Element :: Type :: Stone)){ score += 5; return; }
+            if(this -> craft(&selected[0], Element :: Type :: Stone, Element :: Type :: Stone, Element :: Type :: IronOre)){ score += 5; return; }
+            if(this -> craft(&selected[0], Element :: Type :: Earth, Element :: Type :: Water, Element :: Type :: Wood)){ score += 5; return; }
+            if(this -> craft(&selected[0], Element :: Type :: Wood, Element :: Type :: Fire, Element :: Type :: FirePit)){ score += 5; return; }
+            if(this -> craft(&selected[0], Element :: Type :: IronOre, Element :: Type :: FirePit, Element :: Type :: Iron)){ score += 5; return; }
+            if(this -> craft(&selected[0], Element :: Type :: Stone, Element :: Type :: Air, Element :: Type :: KeyCast)){  score += 5;return; }
+            if(this -> craft(&selected[0], Element :: Type :: Iron, Element :: Type :: KeyCast, Element :: Type :: Key)){  score += 5;return; }
             else {
                 items[selected[0]].moveToClosestSocket(items);
                 items[selected[1]].moveToClosestSocket(items);
@@ -280,6 +282,7 @@ class Inventory{
     private :
         uint32_t decraftIndex;
         int score;
+        sf :: Sound crafts;
         bool completed, lost;
         Element :: Type target;
         std :: vector<Element> items;

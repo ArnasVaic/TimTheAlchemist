@@ -12,6 +12,7 @@ using namespace std;
 
 void playMusic();
 void stopMusic();
+void playLoseMusic();
 
 int main(){
     RenderWindow window(VideoMode(wSize.x , wSize.y), "Tim The Alchemist", Style :: Titlebar | Style :: Close);
@@ -24,10 +25,11 @@ int main(){
     long lastTime = timer.restart().asMicroseconds();
     double dt = 0;
 
-    Sprite start_bg, lost_bg, game_bg(Assets :: instance() -> background[0]);
+    Sprite start_bg, lost_bg, won_bg, game_bg(Assets :: instance() -> background[0]);
     game_bg.setScale(SCALE, SCALE);
     Animation start_animation(Assets :: instance() -> background[1], start_bg, sf :: Vector2u(8, 1), sf :: Vector2f(SCALE, SCALE));
     Animation lost_animation(Assets :: instance() -> background[2], lost_bg, sf :: Vector2u(8, 1), sf :: Vector2f(SCALE, SCALE));
+    Animation won_animation(Assets :: instance() -> background[3], won_bg, sf :: Vector2u(8, 1), sf :: Vector2f(SCALE, SCALE));
     
     Cutscene scene1(Assets :: instance() -> cutscene1, 4, 8);
     scene1.textBoxes.push_back(Textbox("zzzzzz...", 24));
@@ -55,6 +57,16 @@ int main(){
     Menu startMenu(State :: Type :: Start);
     startMenu.addButton(State :: Type :: Cutscene1, "START", playMusic);
     startMenu.addButton(State :: Type :: Exit, "EXIT", empty);
+    
+    Menu gameMenu(State :: Type :: Level1);
+    gameMenu.addButton(State :: Type :: Start, "EXIT", stopMusic);
+    gameMenu.setButtonPosition(0, sf :: Vector2f( wSize.x - 8 * SCALE, 8 * SCALE));
+
+    Menu lostMenu(State :: Type :: Lost);
+    lostMenu.addButton(State :: Type :: Start, "MAIN MENU", empty);
+
+    Menu wonMenu(State :: Type :: Won);
+    wonMenu.addButton(State :: Type :: Start, "MAIN MENU", empty);
 
     std :: vector<Element> level1_items;
     level1_items.push_back(Element(Element :: Type :: Earth, 0));
@@ -90,7 +102,7 @@ int main(){
     float musicVol = 0;
     Assets :: instance() -> music.setLoop(true);
     Assets :: instance() -> music.setVolume(musicVol);
-   // Assets :: instance() -> music.play();
+    Assets :: instance() -> Lostmusic.setVolume(15);
 
     while (window.isOpen()){
         Event e;
@@ -108,7 +120,12 @@ int main(){
             
             window.clear(Color :: White);
             sf :: Vector2f m_pos = (sf :: Vector2f) sf :: Mouse :: getPosition(window);
+
             startMenu.update(window, e);
+            gameMenu.update(window, e);
+            lostMenu.update(window, e);
+            wonMenu.update(window, e);
+
             if(State :: instance() -> back() == State :: Type :: Start){
                 start_animation.play(0, 0.1f, start_bg);
                 window.draw(start_bg);
@@ -134,7 +151,7 @@ int main(){
                 scene2.show(window);
                 if(scene2.getProgress()){
                     State :: instance() -> pop();
-                    State :: instance() -> push(State :: Type :: Level2);
+                    State :: instance() -> push(State :: Type :: Won);
                 }
             
             }
@@ -162,13 +179,21 @@ int main(){
             if(State :: instance() -> back() == State :: Type :: Level2){
                 window.clear(Color :: Black);
                 if(musicVol > 0) musicVol -= .1;
-            } 
+            }
+            if(State :: instance() -> back() == State :: Type :: Won){
+                won_animation.play(0, 0.1f, won_bg);
+                window.draw(won_bg);
+            }
             if(State :: instance() -> back() == State :: Type :: Lost){
+                stopMusic();
+                playLoseMusic();
                 lost_animation.play(0, 0.1f, lost_bg);
                 window.draw(lost_bg);
             }
             startMenu.show(window);
-
+            gameMenu.show(window);
+            lostMenu.show(window);
+            wonMenu.show(window);
             window.display();
             if(State :: instance() -> back() == State :: Type :: Exit){ window.close(); }
             --dt;
@@ -183,4 +208,8 @@ void playMusic(){
 
 void stopMusic(){
     Assets :: instance() -> music.stop();
+}
+
+void playLoseMusic(){
+    Assets :: instance() -> Lostmusic.play();
 }

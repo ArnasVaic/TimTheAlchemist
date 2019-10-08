@@ -10,13 +10,13 @@ class Assets{
 
     public :
 
-        sf :: Texture background[3];
+        sf :: Texture background[4];
         sf :: Texture cutscene1, cutscene2;
         sf :: Texture elementSheets[13];
         sf :: Texture elementTextures[13];
 
         sf :: Font font;
-        sf :: Music music;
+        sf :: Music music, Lostmusic;
         sf :: SoundBuffer click, level_failed, craft;
 
         static std :: shared_ptr<Assets> instance(){
@@ -31,12 +31,14 @@ class Assets{
             background[0].loadFromFile("res/textures/backgrounds/game_background.png");
             background[1].loadFromFile("res/textures/backgrounds/start_background_sheet.png");
             background[2].loadFromFile("res/textures/backgrounds/lost_background_sheet.png");
+            background[3].loadFromFile("res/textures/backgrounds/win_background_sheet.png");
             //SOUNDS
             click.loadFromFile("res/sounds/click.wav");
             level_failed.loadFromFile("res/sounds/levelfailed.wav");
-            craft.loadFromFile("res/sounds/craft.wav");
+            craft.loadFromFile("res/sounds/crafting.wav");
             //MUSIC
             music.openFromFile("res/sounds/cutscenetheme.wav");
+            Lostmusic.openFromFile("res/sounds/levelfailed.wav");
             /// ANIMATED ELEMENTS
             elementSheets[0].loadFromFile("res/textures/element_sheets/water_sheet.png");
             elementSheets[1].loadFromFile("res/textures/element_sheets/fire_sheet.png");

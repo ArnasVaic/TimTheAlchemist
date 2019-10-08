@@ -34,6 +34,10 @@ class Menu{
 			}
 		}
 
+		void setButtonPosition(uint32_t index, sf :: Vector2f pos){
+			buttons[index].setPosition(pos);
+		}
+
 		~Menu(){ }
 	private :
 		State :: Type exist; // In what state does this menu exist

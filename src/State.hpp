@@ -9,7 +9,7 @@ class State{
     public :
 
         enum class Type{
-           Start, Level1, Level2, Level3, Exit, Cutscene1, Cutscene2, Lost
+           Start, Level1, Level2, Level3, Exit, Cutscene1, Cutscene2, Lost, Won
         };
 
     public :
