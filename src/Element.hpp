@@ -51,7 +51,7 @@ class Element{
                     this -> moveToSocket(rects, m_pos);  
                 } 
                 return;
-            } 
+            }
 
             if(clicked) selected = true;
 
@@ -100,20 +100,21 @@ class Element{
             }
         }
 
-         void moveToClosestSocket(sf :: FloatRect *rects,const std :: vector<Element>& items){
+         void moveToClosestSocket(const std :: vector<Element>& items){
+            // Alternative method : check for the smallest, free index, where 0 < index < INVENTORY_SIZE and move the sprite there
+            uint32_t indx; // I cant name it index because class Element already has a var called index
             for(uint32_t i = 0 ; i < INVENTORY_SIZE ; i ++){
-                sf :: FloatRect& sr = *(rects + i); // selected rectangle
-                sf :: Vector2f rect_centre(sr.left + sr.width / 2, sr.top + sr.height / 2);
-                bool occupied = false;
-                for(auto& i : items){
-                    if(rect_centre == i.getPosition()){
-                        occupied = true;
+                bool nextIndex = false;
+                for(auto& j : items){
+                    if(j.getIndex() == i){
+                        nextIndex = true;
                         break;
                     }
                 }
-                if(!occupied){
-                    sprite.setPosition(rect_centre);
-                    return;
+                if(nextIndex) continue;
+                else{
+                    index = i;
+                    this -> moveToIndex(i);
                 }
             }
         }

@@ -32,9 +32,9 @@ class Inventory{
             fade2.setFillColor(sf :: Color(0, 0, 0, 0));
 
             score = 0;
-            std :: string t = "" + score;
-            scoreboard = Textbox(t);
-            scoreboard.setPosition(sf :: Vector2f(8 * SCALE, 8 * SCALE));
+            auto s = "Score : " + std :: to_string(score);
+            scoreboard = Textbox(s);
+            scoreboard.setPosition(sf :: Vector2f(64 * SCALE, 8 * SCALE));
 
         }
 
@@ -62,6 +62,8 @@ class Inventory{
                 //print(" A1 = " << alpha_value1 << " A2 = " << alpha_value2);
             }
             this -> handleCrafting();
+            auto s = "Score : " + std :: to_string(score);
+            scoreboard.setText(s);
             if(score < 0){
                 State :: instance() -> push(State :: Type :: Lost);
             }
@@ -73,6 +75,8 @@ class Inventory{
             for(auto& i : items){
                 i.show(window);
             }
+
+            scoreboard.show(window);
             
             window.draw(fade2);
         }
@@ -106,9 +110,11 @@ class Inventory{
             if(this -> craft(&selected[0], Element :: Type :: Stone, Element :: Type :: Air, Element :: Type :: KeyCast)){  score += 10;return; }
             if(this -> craft(&selected[0], Element :: Type :: Iron, Element :: Type :: KeyCast, Element :: Type :: Key)){  score += 10;return; }
             else {
-                items[selected[0]].moveToClosestSocket(&rects[0], items );
-                items[selected[1]].moveToClosestSocket(&rects[0], items );
+                items[selected[0]].moveToClosestSocket(items);
+                items[selected[1]].moveToClosestSocket(items);
+                selected[0] = selected[1] = INVENTORY_SIZE + 3;
                 score -= 10;
+                print(score);
                 std :: string t = "" + score;
                 scoreboard.setText(t);
             }
@@ -146,7 +152,6 @@ class Inventory{
                     std :: swap(items[*selected], items.back());            
                     std :: swap(items[*(selected + 1)], items[items.size() - 2]);
                 }
-// std :: to_string
                 items.pop_back();
                 items.pop_back();
 

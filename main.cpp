@@ -70,11 +70,12 @@ int main(){
 
     Inventory level1_inventory(level1_items, Element :: Type :: Key);
 
+    Textbox tutorial;
+
     float musicVol = 0;
     Assets :: instance() -> music.setLoop(true);
     Assets :: instance() -> music.setVolume(musicVol);
-
-    Assets :: instance() -> music.play();
+   // Assets :: instance() -> music.play();
 
     while (window.isOpen()){
         Event e;
@@ -105,6 +106,10 @@ int main(){
                 scene1.play();
                 scene1.show(window);
                 if(scene1.getProgress()){
+                    State :: instance() -> pop();
+                    State :: instance() -> push(State :: Type :: Level1);
+                }
+                if(e.type == Event :: MouseButtonPressed){
                     State :: instance() -> pop();
                     State :: instance() -> push(State :: Type :: Level1);
                 }
