@@ -25,7 +25,7 @@ class Element{
 
             pressed = released = selected = false;
             tb = Textbox(this -> getTypeAsString());
-            click =sf :: Sound(Assets :: instance() -> click);
+            click = sf :: Sound(Assets :: instance() -> click);
             click.setVolume(50);
         }
 
@@ -90,13 +90,29 @@ class Element{
         }
 
         void moveToSocket(sf :: FloatRect *rects, sf :: Vector2f m_pos){
-            //bool done = false;
             for(uint16_t i = 0 ; i < INVENTORY_SIZE + 2 ; i ++){
                 sf :: FloatRect& rect = *(rects + i);
                 if(rect.contains(m_pos)){
                     index = i;
                     sprite.setPosition(rect.left + rect.width/ 2, rect.top + rect.height/ 2);
-                    //done = true;
+                    return;
+                }
+            }
+        }
+
+         void moveToClosestSocket(sf :: FloatRect *rects,const std :: vector<Element>& items){
+            for(uint32_t i = 0 ; i < INVENTORY_SIZE ; i ++){
+                sf :: FloatRect& sr = *(rects + i); // selected rectangle
+                sf :: Vector2f rect_centre(sr.left + sr.width / 2, sr.top + sr.height / 2);
+                bool occupied = false;
+                for(auto& i : items){
+                    if(rect_centre == i.getPosition()){
+                        occupied = true;
+                        break;
+                    }
+                }
+                if(!occupied){
+                    sprite.setPosition(rect_centre);
                     return;
                 }
             }
@@ -168,7 +184,7 @@ class Element{
             this -> t = t;
         }
 
-        sf :: Vector2f getPosition(){
+        sf :: Vector2f getPosition() const{
             return sprite.getPosition();
         }
 
@@ -176,7 +192,7 @@ class Element{
             sprite.setPosition(pos);
         }
 
-        sf :: Vector2f getScale(){
+        sf :: Vector2f getScale() const{
             return sprite.getScale();
         }
 
@@ -184,11 +200,11 @@ class Element{
             sprite.setScale(scale);
         }
 
-        int getIndex(){
+        int getIndex() const {
             return index;
         }
 
-        Type getType(){
+        Type getType() const{
             return t;
         }
 

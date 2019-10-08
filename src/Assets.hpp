@@ -10,7 +10,7 @@ class Assets{
 
     public :
 
-        sf :: Texture background[2];
+        sf :: Texture background[3];
         sf :: Texture cutscene1, cutscene2;
         sf :: Texture elementSheets[13];
         sf :: Texture elementTextures[13];
@@ -30,6 +30,7 @@ class Assets{
             // BCKGROUNDS
             background[0].loadFromFile("res/textures/backgrounds/game_background.png");
             background[1].loadFromFile("res/textures/backgrounds/start_background_sheet.png");
+            background[2].loadFromFile("res/textures/backgrounds/lost_background_sheet.png");
             //SOUNDS
             click.loadFromFile("res/sounds/click.wav");
             level_failed.loadFromFile("res/sounds/levelfailed.wav");

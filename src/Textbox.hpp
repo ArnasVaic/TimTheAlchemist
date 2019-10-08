@@ -25,10 +25,6 @@ class Textbox{
             rect.setFillColor(sf :: Color(0, 0, 0, 100));
         }
 
-        void setPosition(sf :: Vector2f pos){
-            rect.setPosition(pos);
-            text.setPosition(pos);
-        }
         void show(sf :: RenderWindow& window){
             window.draw(rect);
             window.draw(text);
@@ -40,6 +36,34 @@ class Textbox{
         sf :: Text text;
         sf :: RectangleShape rect;
         sf :: Vector2f padding;
+
+    public :
+        void setText(const std :: string& message){
+            text.setString(message);
+            rect.setSize(sf :: Vector2f(sf :: Vector2f(text.getGlobalBounds().width + 2 * padding.x, text.getGlobalBounds().height + 2 * padding.y)));
+            this -> rect.setOrigin(rect.getGlobalBounds().width / 2, rect.getGlobalBounds().height / 2);
+        }
+
+        void setPosition(sf :: Vector2f pos){
+            rect.setPosition(pos);
+            text.setPosition(pos);
+        }
+
+        void setFillColor(sf :: Color col){
+            text.setFillColor(col);
+        }
+
+        const std :: string getText() const{
+            return text.getString();
+        }
+
+        sf :: Vector2f getPosition(){
+            return text.getPosition();
+        }
+
+        sf :: Color getFillColor(){
+            return text.getFillColor();
+        }
 };
 
 #endif

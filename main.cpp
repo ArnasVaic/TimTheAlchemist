@@ -24,9 +24,11 @@ int main(){
     long lastTime = timer.restart().asMicroseconds();
     double dt = 0;
 
-    Sprite start_bg;
-    Animation startBackground(Assets :: instance() -> background[1], start_bg, sf :: Vector2u(8, 1), sf :: Vector2f(SCALE, SCALE));
-
+    Sprite start_bg, lost_bg, game_bg(Assets :: instance() -> background[0]);
+    game_bg.setScale(SCALE, SCALE);
+    Animation start_animation(Assets :: instance() -> background[1], start_bg, sf :: Vector2u(8, 1), sf :: Vector2f(SCALE, SCALE));
+    Animation lost_animation(Assets :: instance() -> background[2], lost_bg, sf :: Vector2u(8, 1), sf :: Vector2f(SCALE, SCALE));
+    
     Cutscene scene1(Assets :: instance() -> cutscene1, 4, 8);
     scene1.textBoxes.push_back(Textbox("zzzzzz...", 24));
     scene1.textBoxes.push_back(Textbox("What ? Where ? Where am I ?", 24));
@@ -48,8 +50,7 @@ int main(){
     }
 
 
-    Sprite gameBackground(Assets :: instance() -> background[0]);
-    gameBackground.setScale(SCALE, SCALE);
+    
 
     Menu startMenu(State :: Type :: Start);
     startMenu.addButton(State :: Type :: Cutscene1, "START", playMusic);
@@ -93,7 +94,7 @@ int main(){
             sf :: Vector2f m_pos = (sf :: Vector2f) sf :: Mouse :: getPosition(window);
             startMenu.update(window, e);
             if(State :: instance() -> back() == State :: Type :: Start){
-                startBackground.play(0, 0.1f, start_bg);
+                start_animation.play(0, 0.1f, start_bg);
                 window.draw(start_bg);
             }
             if(State :: instance() -> back() == State :: Type :: Cutscene1){
@@ -124,13 +125,17 @@ int main(){
                     State :: instance() -> pop();
                     State :: instance() -> push(State :: Type :: Cutscene2);
                 }
-                window.draw(gameBackground);
+                window.draw(game_bg);
                 level1_inventory.show(window);
             }  
             if(State :: instance() -> back() == State :: Type :: Level2){
                 window.clear(Color :: Black);
                 if(musicVol > 0) musicVol -= .1;
-            }   
+            } 
+            if(State :: instance() -> back() == State :: Type :: Lost){
+                lost_animation.play(0, 0.1f, lost_bg);
+                window.draw(lost_bg);
+            }
             startMenu.show(window);
 
             window.display();

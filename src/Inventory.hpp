@@ -4,8 +4,10 @@
 #include <string>
 #include <vector>
 #include <memory>
+
 #include "Utilities.hpp"
 #include "Element.hpp"
+#include "State.hpp"
 
 class Inventory{
 
@@ -28,6 +30,12 @@ class Inventory{
             fade2 = sf :: RectangleShape(sf :: Vector2f(wSize)); 
             fade1.setFillColor(sf :: Color(0, 0, 0, 0));
             fade2.setFillColor(sf :: Color(0, 0, 0, 0));
+
+            score = 0;
+            std :: string t = "" + score;
+            scoreboard = Textbox(t);
+            scoreboard.setPosition(sf :: Vector2f(8 * SCALE, 8 * SCALE));
+
         }
 
         void update(sf :: RenderWindow& window, sf :: Event e){
@@ -36,7 +44,7 @@ class Inventory{
 
             if(!isTargetCrafted()){
                 for(auto& i : items){
-                i.update(window, e, m_pos, &rects[0]);
+                    i.update(window, e, m_pos, &rects[0]);
                 }
             }
             else {
@@ -54,6 +62,9 @@ class Inventory{
                 //print(" A1 = " << alpha_value1 << " A2 = " << alpha_value2);
             }
             this -> handleCrafting();
+            if(score < 0){
+                State :: instance() -> push(State :: Type :: Lost);
+            }
         }
 
         void show(sf :: RenderWindow& window){
@@ -85,16 +96,22 @@ class Inventory{
                 if(items[i].getIndex() == INVENTORY_SIZE) selected[0] = i;
                 if(items[i].getIndex() == INVENTORY_SIZE + 1) selected[1] = i;
             } 
-            
+            // when index is INVENTORY_SIZE + 3 its just return because no items are in queue to craft
             if(selected[0] == INVENTORY_SIZE + 3 || selected[1] == INVENTORY_SIZE + 3) return;
-            if(this -> craft(&selected[0], Element :: Type :: Earth, Element :: Type :: Fire, Element :: Type :: Stone)){ return; }
-            if(this -> craft(&selected[0], Element :: Type :: Stone, Element :: Type :: Stone, Element :: Type :: IronOre)){ return; }
-            if(this -> craft(&selected[0], Element :: Type :: Earth, Element :: Type :: Water, Element :: Type :: Wood)){ return; }
-            if(this -> craft(&selected[0], Element :: Type :: Wood, Element :: Type :: Fire, Element :: Type :: FirePit)){ return; }
-
-            if(this -> craft(&selected[0], Element :: Type :: IronOre, Element :: Type :: FirePit, Element :: Type :: Iron)){ return; }
-            if(this -> craft(&selected[0], Element :: Type :: Stone, Element :: Type :: Air, Element :: Type :: KeyCast)){ return; }
-            if(this -> craft(&selected[0], Element :: Type :: Iron, Element :: Type :: KeyCast, Element :: Type :: Key)){ return; }
+            if(this -> craft(&selected[0], Element :: Type :: Earth, Element :: Type :: Fire, Element :: Type :: Stone)){ score += 10; return; }
+            if(this -> craft(&selected[0], Element :: Type :: Stone, Element :: Type :: Stone, Element :: Type :: IronOre)){ score += 10; return; }
+            if(this -> craft(&selected[0], Element :: Type :: Earth, Element :: Type :: Water, Element :: Type :: Wood)){ score += 10; return; }
+            if(this -> craft(&selected[0], Element :: Type :: Wood, Element :: Type :: Fire, Element :: Type :: FirePit)){ score += 10; return; }
+            if(this -> craft(&selected[0], Element :: Type :: IronOre, Element :: Type :: FirePit, Element :: Type :: Iron)){ score += 10; return; }
+            if(this -> craft(&selected[0], Element :: Type :: Stone, Element :: Type :: Air, Element :: Type :: KeyCast)){  score += 10;return; }
+            if(this -> craft(&selected[0], Element :: Type :: Iron, Element :: Type :: KeyCast, Element :: Type :: Key)){  score += 10;return; }
+            else {
+                items[selected[0]].moveToClosestSocket(&rects[0], items );
+                items[selected[1]].moveToClosestSocket(&rects[0], items );
+                score -= 10;
+                std :: string t = "" + score;
+                scoreboard.setText(t);
+            }
         }
 
         bool craft(uint32_t* selected, Element :: Type t1, Element :: Type t2, Element :: Type t3){ 
@@ -129,7 +146,7 @@ class Inventory{
                     std :: swap(items[*selected], items.back());            
                     std :: swap(items[*(selected + 1)], items[items.size() - 2]);
                 }
-
+// std :: to_string
                 items.pop_back();
                 items.pop_back();
 
@@ -148,12 +165,14 @@ class Inventory{
         }
 
     private :
-        bool completed;
+        int score;
+        bool completed, lost;
         Element :: Type target;
         std :: vector<Element> items;
         sf :: FloatRect rects[INVENTORY_SIZE + 3];
         float alpha_value1 = 0, alpha_value2 = 0;
         sf :: RectangleShape fade1, fade2;
+        Textbox scoreboard;
 };
 
 #endif
