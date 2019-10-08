@@ -29,7 +29,7 @@ class Element{
             click.setVolume(50);
         }
 
-        void update(sf :: RenderWindow& window, sf :: Event e, sf :: Vector2f m_pos, sf :: FloatRect* rects){
+        void update(sf :: Event e, sf :: Vector2f m_pos, sf :: FloatRect* rects){
             /// update the text box
             showTextBox = sprite.getGlobalBounds().contains(m_pos) ? true :false;
             tb.setPosition(sprite.getPosition());
@@ -38,7 +38,7 @@ class Element{
             /// update the element
 
             bool clicked = false;
-            if(this -> clicked(window, e, m_pos)){
+            if(this -> clicked(e, m_pos)){
                 click.play();
                 clicked = true;
                 pressed = released = false;
@@ -65,7 +65,7 @@ class Element{
             if(showTextBox) tb.show(window);
         }
 
-        bool clicked(sf :: RenderWindow& window, sf :: Event e, sf :: Vector2f m_pos){
+        bool clicked(sf :: Event e, sf :: Vector2f m_pos){
             if(e.mouseButton.button == sf :: Mouse :: Left){
                 if(sprite.getGlobalBounds().contains(m_pos)){
                     if(!selected) showTextBox = true;
@@ -82,6 +82,7 @@ class Element{
                 index %= INVENTORY_SIZE;
                 return;
             }
+            index = index;
             float xi = index % INVENTORY_SIZE_X;
             float yi = (index - xi ) / INVENTORY_SIZE_X;
             float x = SOCKET_SIZE / 2 + OFFSETX + (SPACING + SOCKET_SIZE) * xi;
@@ -124,6 +125,7 @@ class Element{
             for(uint32_t i = 0 ; i < INVENTORY_SIZE + 2 ; i++){
                 sf :: FloatRect& rect = *(rects + i);
                 if(rect.contains(m_pos)){
+                    index = i;
                     done = true;
                     break;
                 }
@@ -203,6 +205,10 @@ class Element{
 
         int getIndex() const {
             return index;
+        }
+
+        void setIndex(uint32_t ix){
+            index = ix;
         }
 
         Type getType() const{

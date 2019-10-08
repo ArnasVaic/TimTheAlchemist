@@ -38,7 +38,7 @@ int main(){
     Cutscene scene2(Assets :: instance() -> cutscene2, 4, 8);
     scene2.textBoxes.push_back(Textbox("Finally !", 24));
     scene2.textBoxes.push_back(Textbox("I was able to craft this key", 24));
-    scene2.textBoxes.push_back(Textbox("Now I can unclock the hatchet !", 24));
+    scene2.textBoxes.push_back(Textbox("Now I can unlock the hatch !", 24));
     scene2.textBoxes.push_back(Textbox("Hmmm. I wonder what's next ?", 24));
 
     for(auto& i : scene1.textBoxes){
@@ -70,7 +70,22 @@ int main(){
 
     Inventory level1_inventory(level1_items, Element :: Type :: Key);
 
-    Textbox tutorial;
+
+    bool restartTutorialClock = true;
+    sf :: Clock tutorialTimer;
+    float tutorialTime = 6; // the ammount of time (sec) each tutorial textbox has to appear
+    uint32_t tutorialIndex = 0; // which tutorial to display
+    Textbox tutorial[5];
+
+    tutorial[0] = Textbox("To drag the element aroud press the left mouse button.", 24);
+    tutorial[1] = Textbox("To get a new element, place two other elements in sockets marked with squares", 24);
+    tutorial[2] = Textbox("To de-combine an element press the right mouse button on it ", 24);
+    tutorial[3] = Textbox("Combining the wrong elements or de-combining one reduces your score ! ", 24);
+    tutorial[4] = Textbox("If you have a negative score you lose the game so be careful ! ", 24);
+
+    for(uint32_t i = 0 ; i < 5 ; i ++){
+        tutorial[i].setPosition(sf :: Vector2f(wSize.x / 2, wSize.y - 8 * SCALE));
+    }
 
     float musicVol = 0;
     Assets :: instance() -> music.setLoop(true);
@@ -124,6 +139,15 @@ int main(){
             
             }
             if(State :: instance() -> back() == State :: Type :: Level1){
+                if(restartTutorialClock){
+                    tutorialTimer.restart();
+                    restartTutorialClock = false;
+                }
+
+                if(tutorialTimer.getElapsedTime().asSeconds() >= tutorialTime){
+                    if(tutorialIndex < 5) ++tutorialIndex;
+                    tutorialTimer.restart();
+                }
                 
                 level1_inventory.update(window, e);
                 if(level1_inventory.isLevelCompleted()){
@@ -132,6 +156,8 @@ int main(){
                 }
                 window.draw(game_bg);
                 level1_inventory.show(window);
+                
+                if(tutorialIndex <= 4)tutorial[tutorialIndex].show(window);
             }  
             if(State :: instance() -> back() == State :: Type :: Level2){
                 window.clear(Color :: Black);

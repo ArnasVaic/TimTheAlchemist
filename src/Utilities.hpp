@@ -25,6 +25,8 @@ const sf :: Vector2u CRAFTSOCKET1(160 * SCALE, 52 * SCALE); // coord of the sock
 const sf :: Vector2u CRAFTSOCKET2(136 * SCALE, 32 * SCALE); // coord of socket where you put items
 const sf :: Vector2u CRAFTSOCKET3(136 * SCALE, 72 * SCALE); // coord of socket where you put items
 
+bool pressed = false, released = false;
+
 #define DEFAULT_TEXTURE_SIZE 16
 #define print(x) std :: cout << x << std :: endl
 
@@ -36,6 +38,14 @@ float mag(sf :: Vector2u v){
 
 float mag(sf :: Vector2f v){
     return sqrt(v.x * v.x + v.y * v.y);
+}
+
+bool clickedRight(sf :: Event e, sf :: Vector2f m_pos){
+    if(e.mouseButton.button == sf :: Mouse :: Right){
+        if(e.type == sf :: Event :: MouseButtonPressed) pressed = true;
+        else  if(e.type == sf :: Event :: MouseButtonReleased && pressed) released = true;
+    }
+    return pressed && released;
 }
 
 
