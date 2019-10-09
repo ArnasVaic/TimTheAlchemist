@@ -1,4 +1,7 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 #include "src/Inventory.hpp"
 #include "src/Cutscene.hpp"
 #include "src/Assets.hpp"

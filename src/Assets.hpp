@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+//#include "res/textures/icons/icon.h"
 //#include <SFML/Audio.hpp>
 #include <memory>
 
@@ -27,7 +28,7 @@ class Assets{
 
         void loadAssets(){
             //ICON
-            icon.loadFromFile("res/textures/icons/icon.png");
+            //icon.loadFrom(iconh);
             //FONTS
             font.loadFromFile("res/fonts/font.ttf");
             // BCKGROUNDS
