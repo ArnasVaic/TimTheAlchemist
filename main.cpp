@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-
 #include "src/Inventory.hpp"
 #include "src/Cutscene.hpp"
 #include "src/Assets.hpp"
@@ -15,10 +14,13 @@ void stopMusic();
 void playLoseMusic();
 
 int main(){
-    RenderWindow window(VideoMode(wSize.x , wSize.y), "Tim The Alchemist", Style :: Titlebar | Style :: Close);
-	window.setFramerateLimit(120);
 
     Assets :: instance() -> loadAssets();
+
+    RenderWindow window(VideoMode(wSize.x , wSize.y), "Tim The Alchemist", Style :: Titlebar | Style :: Close);
+	window.setFramerateLimit(120);
+    window.setIcon(16, 16, Assets :: instance() -> icon.getPixelsPtr());
+    
     std :: srand(time(NULL));
 
     Clock timer;

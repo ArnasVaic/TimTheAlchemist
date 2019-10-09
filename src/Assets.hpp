@@ -10,6 +10,7 @@ class Assets{
 
     public :
 
+        sf :: Image icon;
         sf :: Texture background[4];
         sf :: Texture cutscene1, cutscene2;
         sf :: Texture elementSheets[13];
@@ -25,8 +26,10 @@ class Assets{
         }
 
         void loadAssets(){
+            //ICON
+            icon.loadFromFile("res/textures/icons/icon.png");
             //FONTS
-            font.loadFromFile("res/fonts/pixelmix.TTF");
+            font.loadFromFile("res/fonts/font.ttf");
             // BCKGROUNDS
             background[0].loadFromFile("res/textures/backgrounds/game_background.png");
             background[1].loadFromFile("res/textures/backgrounds/start_background_sheet.png");
