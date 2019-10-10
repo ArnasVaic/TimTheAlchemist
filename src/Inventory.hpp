@@ -40,7 +40,10 @@ class Inventory{
             fade2.setFillColor(sf :: Color(0, 0, 0, 0));
 
             score = 0;
-            auto s = "Score : " + std :: to_string(score);
+            char ch[3];
+            itoa(score, &ch[0], 10);
+            auto sc = std :: string(ch);
+            auto s = "Score : " + sc;
             scoreboard = Textbox(s, 24);
             scoreboard.setPosition(sf :: Vector2f(64 * SCALE, 8 * SCALE));
 
@@ -71,7 +74,10 @@ class Inventory{
             }
             this -> handleCrafting();
             this -> handleDecrating(e, m_pos);
-            auto s = "Score : " + std :: to_string(score);
+            char ch[3];
+            itoa(score, &ch[0], 10);
+            auto sc = std :: string(ch);
+            auto s = "Score : " + sc;
             scoreboard.setText(s);
             if(score < 0){
                 State :: instance() -> push(State :: Type :: Lost);

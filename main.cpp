@@ -159,10 +159,10 @@ int main(){
                     State :: instance() -> pop();
                     State :: instance() -> push(State :: Type :: Level1);
                 }
-                if(e.type == Event :: MouseButtonPressed){
+                /* if(e.type == Event :: MouseButtonPressed){
                     State :: instance() -> pop();
                     State :: instance() -> push(State :: Type :: Level1);
-                }
+                } */
             }
             if(State :: instance() -> back() == State :: Type :: Cutscene2){
                 scene2.play();
