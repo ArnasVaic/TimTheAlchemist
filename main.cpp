@@ -26,6 +26,9 @@ static bool lostmp = false;
 
 int main(){
 
+    HWND myConsole = GetConsoleWindow();
+    ShowWindow(myConsole,0);
+
     Assets :: instance() -> loadAssets();
 
     RenderWindow window(VideoMode(wSize.x , wSize.y), "Tim The Alchemist", Style :: Titlebar | Style :: Close);
