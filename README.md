@@ -1,2 +1,2 @@
 # TimTheAlchemist
-Game about a Alchemist named Tim, you job is to help Tim reach the freedom.
+You wake up in an alien looking cave and try to escape by crafting elements.

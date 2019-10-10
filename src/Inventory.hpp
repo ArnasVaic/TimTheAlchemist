@@ -12,7 +12,8 @@
 class Inventory{
 
     public :
-        Inventory(std :: vector<Element>& items, Element :: Type target) : target(target), completed(false), decraftIndex(INVENTORY_SIZE + 3) {
+        Inventory(){}
+        Inventory(std :: vector<Element> items, Element :: Type target) : target(target), completed(false), decraftIndex(INVENTORY_SIZE + 3) {
             crafts = sf :: Sound(Assets :: instance() -> craft);
             // starting items :
             this -> items = items;  
@@ -51,7 +52,7 @@ class Inventory{
 
             if(!isTargetCrafted()){
                 for(auto& i : items){
-                    i.update(e, m_pos, &rects[0]);
+                    i.update(e, m_pos, &rects[0], items);
                 }
             }
             else {
@@ -91,6 +92,11 @@ class Inventory{
 
         bool isLevelCompleted(){
             return completed;
+        }
+
+        void restart(std :: vector<Element> items){
+            this -> items = items;
+            score = 0;
         }
 
     private :

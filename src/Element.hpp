@@ -29,7 +29,7 @@ class Element{
             click.setVolume(50);
         }
 
-        void update(sf :: Event e, sf :: Vector2f m_pos, sf :: FloatRect* rects){
+        void update(sf :: Event e, sf :: Vector2f m_pos, sf :: FloatRect* rects, std :: vector<Element>& items){
             /// update the text box
             showTextBox = sprite.getGlobalBounds().contains(m_pos) ? true :false;
             tb.setPosition(sprite.getPosition());
@@ -38,15 +38,23 @@ class Element{
             /// update the element
 
             bool clicked = false;
+
             if(this -> clicked(e, m_pos)){
                 click.play();
                 clicked = true;
                 pressed = released = false;
             }
 
+            if(index == INVENTORY_SIZE + 2){
+                if(clicked){
+                    this -> moveToClosestSocket(items);
+                    return;
+                }
+            }
+
             if(selected && clicked){
                 if(this -> isTouchingSocket(m_pos, rects)){
-                    index -1;
+                    //index -1;
                     selected = false;
                     this -> moveToSocket(rects, m_pos);  
                 } 

@@ -7,6 +7,8 @@
 #include "src/Assets.hpp"
 #include "src/Menu.hpp"
 #include "src/State.hpp"
+
+#include <windows.h>
 #include <time.h>
 
 using namespace sf;
@@ -15,6 +17,12 @@ using namespace std;
 void playMusic();
 void stopMusic();
 void playLoseMusic();
+void stopLoseMusic();
+void restart();
+
+static Inventory level1_inventory;
+static std :: vector<Element> level1_items;
+static bool lostmp = false;
 
 int main(){
 
@@ -69,11 +77,12 @@ int main(){
 
     Menu lostMenu(State :: Type :: Lost);
     lostMenu.addButton(State :: Type :: Start, "MAIN MENU", empty);
+    lostMenu.addButton(State :: Type :: Level1, "TRY AGAIN", restart);
 
     Menu wonMenu(State :: Type :: Won);
     wonMenu.addButton(State :: Type :: Start, "MAIN MENU", empty);
 
-    std :: vector<Element> level1_items;
+    
     level1_items.push_back(Element(Element :: Type :: Earth, 0));
     level1_items.push_back(Element(Element :: Type :: Earth, 1));
     level1_items.push_back(Element(Element :: Type :: Earth, 2));
@@ -85,7 +94,7 @@ int main(){
     level1_items.push_back(Element(Element :: Type :: Air, 8));
     level1_items.push_back(Element(Element :: Type :: Water, 9));
 
-    Inventory level1_inventory(level1_items, Element :: Type :: Key);
+    level1_inventory = Inventory(level1_items, Element :: Type :: Key);
 
 
     bool restartTutorialClock = true;
@@ -107,6 +116,7 @@ int main(){
     float musicVol = 0;
     Assets :: instance() -> music.setLoop(true);
     Assets :: instance() -> music.setVolume(musicVol);
+    Assets :: instance() -> Lostmusic.setLoop(true);
     Assets :: instance() -> Lostmusic.setVolume(15);
 
     while (window.isOpen()){
@@ -191,7 +201,12 @@ int main(){
             }
             if(State :: instance() -> back() == State :: Type :: Lost){
                 stopMusic();
-                playLoseMusic();
+                if(!lostmp){
+                    playLoseMusic();
+                    lostmp = true;
+                }
+                if(lostmp) stopLoseMusic();
+               
                 lost_animation.play(0, 0.1f, lost_bg);
                 window.draw(lost_bg);
             }
@@ -200,6 +215,7 @@ int main(){
             lostMenu.show(window);
             wonMenu.show(window);
             window.display();
+            print(lostmp);
             if(State :: instance() -> back() == State :: Type :: Exit){ window.close(); }
             --dt;
         }
@@ -217,4 +233,15 @@ void stopMusic(){
 
 void playLoseMusic(){
     Assets :: instance() -> Lostmusic.play();
+}
+
+void stopLoseMusic(){
+    Assets :: instance() -> Lostmusic.stop();
+}
+
+void restart(){
+    level1_inventory.restart(level1_items);
+    lostmp = false;
+    stopLoseMusic();
+    playMusic();
 }

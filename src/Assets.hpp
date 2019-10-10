@@ -28,7 +28,7 @@ class Assets{
 
         void loadAssets(){
             //ICON
-            //icon.loadFrom(iconh);
+            icon.loadFromFile("res/textures/icons/icon.png");
             //FONTS
             font.loadFromFile("res/fonts/font.ttf");
             // BCKGROUNDS

@@ -1,1 +1,6 @@
+#ifndef _RESOURCE_RC_
+#define _RESOURCE_RC_
+
 id ICON "res/textures/icons/icon.ico"
+
+#endif
